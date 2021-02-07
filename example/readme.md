@@ -11,11 +11,22 @@ docker run --rm -it \
 
 Run the sample application to write to a file the demo metrics and traces
 
-```go
+```shell
 $ go run ./app
 $ ls
-    metric.json
-    trace.json
+...
+trace.json
 ```
 
-Then run 
+Star the jaeger otlp container
+```shell
+$ docker run -d --name jaeger -p 16686:16686 -p 55680:55680 jaegertracing/opentelemetry-all-in-one
+```
+
+
+Export the tracers to jaeger 
+```shell
+$ go run ./exporter
+```
+
+View the traces on jaeger [localhost:16686](http://localhost:16686/)
