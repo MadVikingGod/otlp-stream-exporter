@@ -10,7 +10,7 @@ import (
 
 	"go.opentelemetry.io/otel"
 	"go.opentelemetry.io/otel/exporters/otlp"
-	"go.opentelemetry.io/otel/label"
+	"go.opentelemetry.io/otel/attribute"
 	sdktrace "go.opentelemetry.io/otel/sdk/trace"
 
 	otlpjson "github.com/madvikinggod/otlp-stream-exporter"
@@ -52,7 +52,7 @@ func main() {
 	_, trace2 := tracer.Start(ctx2, "innerTrace")
 	defer trace2.End()
 	time.Sleep(time.Second * 2)
-	trace2.SetAttributes(label.String("inner-trace-label", "foos"))
+	trace2.SetAttributes(attribute.String("inner-trace-label", "foos"))
 
 	tracer2 := otel.Tracer("other Tracer")
 	_, trace3 := tracer2.Start(ctx, "other Trace")
